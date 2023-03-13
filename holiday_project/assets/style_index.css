@@ -1,0 +1,217 @@
+html {
+    text-align: center;
+    font-size: 150%;
+}
+
+h1 {
+    color: #50c059;
+    text-align: center;
+    font-size: 150%;
+    font-family: Arial;
+}
+
+img {
+    width: 400px;
+    height: 200px;
+}
+
+label {
+    font-size: 80%;
+    font-family: Arial;
+}
+
+.daysInput {
+    width: 40px;
+    height: 30px;
+    margin: 8px 0;
+}
+
+.dateInput {
+    width: 160px;
+    height: 30px;
+    margin: 8px 0;
+}
+
+.textInput {
+    width: 200px;
+    height: 30px;
+    margin: 8px 0;
+}
+
+.submitInput {
+    height: 40px;
+    width:  160px;
+    margin: 12px 0;
+    background-color: #53e5ff;
+    border: none;
+    border-radius: 8px;
+}
+
+.header { grid-area: header;}
+.right { grid-area: right; }
+.main { grid-area: main; }
+
+.grid-container1 {
+    display: grid;
+    grid-template-areas:
+        'header header header right right'
+        'main main main main main'
+        'main main main main main';
+    gap: 10px;
+    padding: 10px;
+    align-items: center;
+    justify-items: center;
+}
+
+.destination1 { grid-area: destination1; text-align: left; padding-left: 20px; margin: 6px 0; height: 32px;}
+.destination2 { grid-area: destination2; align-self: center; text-align: left;}
+.days { grid-area: days;  text-align: left; padding-left: 20px;}
+.timespan { grid-area: timespan; }
+.next { grid-area: next; text-align: right; padding-right: 10px;}
+
+.popup {
+    background-color: white;
+    cursor: pointer;
+    border: 1px solid black;
+    width: 220px;
+    height: 32px;
+    margin: 8px 0;
+    right: 20px;
+    grid-area: numbers;
+}
+
+.textVon {
+    display: inline-flex;
+    margin: 8px 0;
+    width: 100px;
+    text-align: left;
+}
+
+.popupAirport {
+    display: inline-flex;
+    position: relative;
+    background-color: white;
+    cursor: pointer;
+    border: 1px solid black;
+    top: -4px;
+    left: -32px;
+    width: 220px;
+    max-width: 220px;
+    height: 32px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.grid-container2 {
+    background-color: #50c059;
+    display: grid;
+    grid-template-areas:
+        'destination1 destination1 destination2 numbers'
+        'days days timespan timespan'
+        'popup popup next next';
+    gap: 10px;
+    padding: 10px;
+    border-radius: 8px;
+    min-width: 800px;
+}
+
+
+.parent-minus {
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 2px;
+    margin: 8px 0;
+    grid-area: minus1;
+}
+
+.parent-number {
+    border: none;
+    outline: none;
+    border-radius: 0px;
+    font-size: 16px;
+    text-align: center;
+    width: 30px;
+    grid-area: number1;
+}
+
+.parent-plus {
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 2px;
+    margin: 8px 0;
+    grid-area: plus1;
+}
+
+.parents {
+    grid-area: parents;
+}
+
+.children-minus {
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 2px;
+    margin: 8px 0;
+    grid-area: minus2;
+}
+
+.children-number {
+    border: none;
+    outline: none;
+    border-radius: 0px;
+    font-size: 16px;
+    text-align: center;
+    width: 30px;
+    grid-area: number2;
+}
+
+.children-plus {
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 2px;
+    margin: 8px 0;
+    grid-area: plus2;
+}
+
+.children {
+    grid-area: children;
+}
+
+.popup-button {
+    grid-area: button;
+}
+
+.popup-container {
+    visibility: hidden;
+    display: grid;
+    grid-template-areas:
+        'minus1 number1 plus1 parents parents parents'
+        'minus2 number2 plus2 children children children'
+        'button button button button button button';
+    width: 300px;
+    background-color: white;
+    border: 1px solid black;
+    align-items: center;
+    justify-items: center;
+    grid-area: popup;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+}
+
+.show {
+    visibility: visible;
+}
+
+.popupAirport-container {
+    background-color: white;
+    border: 1px solid black;
+    overflow-y: scroll;
+    width: 250px;
+    height: 100px;
+    text-align: left;
+    padding-left: 5px;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+}

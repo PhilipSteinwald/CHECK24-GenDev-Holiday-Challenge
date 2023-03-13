@@ -1,0 +1,178 @@
+{% load static from static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="author" content="Philip Steinwald">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Search Page</title>
+    <link rel="shortcut icon" href="{% static 'icon.png'%}" type="image/x-icon" />
+    <link rel="stylesheet" href="{% static 'style_index.css'%}" type="text/css">
+</head>
+
+<body>
+    <div class="grid-container1">
+        <div class="header">
+            <h1>Buchen Sie jetzt ihren Urlaub!</h1>
+        </div>
+        <div class="right">
+            <img src="{% static 'beach.png'%}" alt="Beach Pictures">
+        </div>
+        <div class="main">
+            
+        
+            <form class="grid-container2" action="/response" method="get">
+                <div class="destination1">
+                    <label class="textVon">Von: &emsp; </label>
+                    <label class="popupAirport" id="popupAirport" onclick="popupFuncAirport()">&emsp;&emsp;&nbsp;&nbsp;"Abflughafen"
+                    </label>
+                </div>
+                <label class="destination2">Nach: &emsp; Mallorca</label>
+                <label class="popup" id="popup" onclick="popupFunc()">1 Erw. 0 Kin.
+                </label>
+                <div class="days">
+                    <label>Dauer: &nbsp;</label>
+                    <input type="number" class="daysInput" id="quantity" name="quantity" min="1" required>
+                    <label>Tage</label>
+                </div>
+                <div class="timespan">
+                    <input type="date" class="dateInput" id="firstDate" name="firstDate" placeholder="Hinflug" required>
+                    <label>&nbsp; bis &nbsp;</label>
+                    <input type="date" class="dateInput" id="secondDate" name="secondDate" placeholder="Rückflug" required>
+                </div>
+                <div class="next">
+                    <input type="submit" class="submitInput" value="Reise finden">
+                </div>
+            </form> 
+        </div>
+    </div>
+
+    <div class="popup-container" id="myPopup">
+        <input type="button" class="parent-minus" onclick="decrementParentValue()" value="-" />
+        <input type="text" id="parent-number" class="parent-number" value="1"/>
+        <input type="button" class="parent-plus" onclick="incrementParentValue()" value="+" />
+        <label class="parents">Erwachsene</label>
+        <input type="button" class="children-minus" onclick="decrementChildrenValue()" value="-" />
+        <input type="text" id="children-number" class="children-number" value="0"/>
+        <input type="button" class="children-plus" onclick="incrementChildrenValue()" value="+" />
+        <label class="children">Kinder</label>
+        <input type="button" class="popup-button" onclick="safePopup()" value="Übernehmen"/>
+    </div>
+
+    <div class="popupAirport-container" id="myAirportPopup" style="visibility: hidden;">
+        <input type="checkbox" onclick="tickBox('FRA')"/>
+        <label>Frankfurt(FRA)</label><br>
+        <input type="checkbox" onclick="tickBox('MUC')"/>
+        <label>München(MUC)</label><br>
+        <input type="checkbox" onclick="tickBox('BER')"/>
+        <label>Berlin(BER)</label><br>
+        <input type="checkbox" onclick="tickBox('LEJ')"/>
+        <label>Leipzig(LEJ)</label><br>
+        <input type="checkbox" onclick="tickBox('DUS')"/>
+        <label>Düsseldorf(DUS)</label><br>
+        <input type="checkbox" onclick="tickBox('HAM')"/>
+        <label>Hamburg(HAM)</label><br>
+        <input type="checkbox" onclick="tickBox('SCN')"/>
+        <label>Saarbrücken(SCN)</label><br>
+        <input type="checkbox" onclick="tickBox('STR')"/>
+        <label>Stuttgart(STR)</label><br>
+        <input type="checkbox" onclick="tickBox('FDH')"/>
+        <label>Friedrichshafen(FDH)</label><br>
+    </div>
+
+    <script>
+
+    function popupFunc() {
+        var popup = document.getElementById("myPopup");
+        var popupOrigin = document.getElementById("popup");
+        var rect = popupOrigin.getBoundingClientRect();
+        popup.style.top = (rect.top + 38)  + 'px';
+        popup.style.left = (rect.left - 50) + 'px';
+        popup.classList.toggle("show");
+    }
+
+    function decrementParentValue() {
+        var value = parseInt(document.getElementById('parent-number').value, 10);
+        value = isNaN(value) ? 1 : value;
+        if(value > 1){
+            value--;
+        }
+        document.getElementById('parent-number').value = value;
+    }
+
+    function incrementParentValue() {
+        var value = parseInt(document.getElementById('parent-number').value, 10);
+        value = isNaN(value) ? 0 : value;
+        value++;
+        document.getElementById('parent-number').value = value;
+    }
+
+    function decrementChildrenValue() {
+        var value = parseInt(document.getElementById('children-number').value, 10);
+        value = isNaN(value) ? 0 : value;
+        if(value > 0){
+            value--;
+        }
+        document.getElementById('children-number').value = value;
+    }
+
+    function incrementChildrenValue() {
+        var value = parseInt(document.getElementById('children-number').value, 10);
+        value = isNaN(value) ? 0 : value;
+        value++;
+        document.getElementById('children-number').value = value;
+    }
+
+    function safePopup() {
+        var value1 = parseInt(document.getElementById('parent-number').value, 10);
+        var value2 = parseInt(document.getElementById('children-number').value, 10);
+        document.getElementById('popup').innerHTML = value1 + ' Erw. ' + value2 + ' Kin.';
+        popupFunc();
+    }
+
+
+    function popupFuncAirport() {
+        var popup = document.getElementById("myAirportPopup");
+        var popupOrigin = document.getElementById("popupAirport");
+        var rect = popupOrigin.getBoundingClientRect();
+        popup.style.top = (rect.top + 38) + 'px';
+        popup.style.left = (rect.left - 5) + 'px';
+        if(popup.style.visibility == 'hidden') {
+            popup.style.visibility = 'visible';
+        }else {
+            popup.style.visibility = 'hidden';
+        }
+    }
+
+    function tickBox(ita) {
+        var popup = document.getElementById("popupAirport");
+        if(popup.innerHTML.includes("Abflughafen")) {
+            popup.innerHTML = ita;
+        }else {
+            if(popup.innerHTML.includes(ita)){
+                var ita_list = popup.innerHTML.split(', ');
+                var result = '';
+                for(var i=0;i<ita_list.length;i++){
+                    if(!ita_list[i].includes(ita)){
+                        if(i > 0 && !ita_list[0].includes(ita)){
+                            result += ', ';
+                        }
+                        result += ita_list[i];
+                    }
+                }
+                if(result == ''){
+                    popup.innerHTML = '&emsp;&emsp;&nbsp;&nbsp;"Abflughafen"';
+                }else {
+                    popup.innerHTML = result;
+                }
+            }else {
+                popup.innerHTML += ', ' + ita
+            }
+        }
+    }
+
+    </script>
+</body>
+</html>
