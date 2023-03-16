@@ -43,6 +43,8 @@
                     <input type="date" class="dateInput" id="secondDate" name="secondDate" placeholder="Rückflug" required>
                 </div>
                 <div class="next">
+                    <input type="text" class="hidden-inputs" id="airports" name="airports" value="" required>
+                    <input type="text" class="hidden-inputs" id="persons" name="persons" value="1 Erw. 0 Kin." required>
                     <input type="submit" class="submitInput" value="Reise finden">
                 </div>
             </form> 
@@ -129,6 +131,7 @@
         var value1 = parseInt(document.getElementById('parent-number').value, 10);
         var value2 = parseInt(document.getElementById('children-number').value, 10);
         document.getElementById('popup').innerHTML = value1 + ' Erw. ' + value2 + ' Kin.';
+        document.getElementById('persons').value = value1 + ' Erw. ' + value2 + ' Kin.';
         popupFunc();
     }
 
@@ -150,6 +153,7 @@
         var popup = document.getElementById("popupAirport");
         if(popup.innerHTML.includes("Abflughafen")) {
             popup.innerHTML = ita;
+            document.getElementById('airports').value = ita;
         }else {
             if(popup.innerHTML.includes(ita)){
                 var ita_list = popup.innerHTML.split(', ');
@@ -164,11 +168,14 @@
                 }
                 if(result == ''){
                     popup.innerHTML = '&emsp;&emsp;&nbsp;&nbsp;"Abflughafen"';
+                    document.getElementById('airports').value = '';
                 }else {
                     popup.innerHTML = result;
+                    document.getElementById('airports').value = result;
                 }
             }else {
-                popup.innerHTML += ', ' + ita
+                popup.innerHTML += ', ' + ita;
+                document.getElementById('airports').value += ', ' + ita;
             }
         }
     }
