@@ -7,9 +7,9 @@
     <meta name="author" content="Philip Steinwald">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Response Page</title>
+    <title>Result Page</title>
     <link rel="shortcut icon" href="{% static 'icon.png'%}" type="image/x-icon" />
-    <link rel="stylesheet" href="{% static 'style_response.css'%}">
+    <link rel="stylesheet" href="{% static 'style_result.css'%}">
 </head>
 
 <body>
@@ -41,23 +41,48 @@
             </div>
         </div>
         <div class="main">
-            <h1>Hotels für Ihre Mallorca-Pauschalreise</h1><br>
-            <div class="hotel-container"> 
-                <img class="image-placeholder" src="{% static 'hotel.jpg'%}" alt="Hotel Image Placeholder">
-                <div class="grid-container">
-                    <div class="left">
-                        <div class="name">Hotel am Meer</div>
-                        <div class="stars">&#9733;&#9733;&#9733;</div>
-                        <div class="room">1x Doppelzimmer</div>
-                        <div class="mealtype">ohne Verpflegung</div>
+            <h1>Ihre Angebote für das Test-Hotel</h1>
+            <h2>Zeitraum: 01.01.2000 - 02.02.2023</h2><br>
+            <div class="offer-container"> 
+                <div class="grid-containerFlights">
+                    <div class="depature1">
+                        <label style="align-self: center">05.10.2022<br>09:30 Uhr</label>
                     </div>
-                    <form class="right" action="/result" method="get">
-                        <input type="text" class="hotelID" id="hotelID" name="hotelID" value="1" required>
+                    <div class="arrival1">
+                        <label style="align-self: center">05.10.2022<br>12:30 Uhr</label>
+                    </div>
+                    <div class="airport">
+                        <div style="top: 10px; position: relative">
+                            <label class="ITAcode">FRA</label><br>
+                            <label class="airportName">Frankfurt am Main</label>
+                        </div>
+                    </div>
+                    <img class="arrow1" src="{% static 'airplaneDown.jpg'%}" alt="Airplane Image Placeholder">
+                    <img class="arrow2" src="{% static 'airplaneUp.jpg'%}" alt="Airplane Image Placeholder2">
+                    <div class="arrival2">
+                        <label style="align-self: center">15.10.2022<br>09:00 Uhr</label>
+                    </div>
+                    <div class="depature2">
+                        <label style="align-self: center">15.10.2022<br>12:00 Uhr</label>
+                    </div>
+                    <div class="palma">
+                        <div style="top: 30px; position: relative">
+                            <label class="ITAcode">PMI</label><br>
+                            <label class="airportName">Palma de Mallorca</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="grid-containerOffer">
+                    <div class="left">
+                        <label class="room">1x Doppelzimmer</label><br>
+                        <label class="mealtype">ohne Verpflegung</label>
+                    </div>
+                    <form class="right" action="/final" method="get">
                         <div class="price">Preis: 899€</div>
-                        <input type="submit" class="hotel-button" value="zu den Angeboten">
+                        <input type="submit" class="hotel-button" value="Angebot buchen">
                     </form>
                 </div>
-            </div><br>
+            </div>
         </div>
     </div>
 

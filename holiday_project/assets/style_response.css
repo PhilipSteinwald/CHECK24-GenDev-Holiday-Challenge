@@ -1,33 +1,125 @@
-html {
-    text-align: center;
-    font-size: 150%;
-}
-
 h1 {
     color: #50c059;
     text-align: center;
-    font-size: 150%;
+    font-size: 175%;
     font-family: Arial;
+    max-width: 1000px;
 }
 
-img {
-    width: 400px;
+.page-container {
+    display: grid;
+    grid-template-areas:
+        'sidebar main main main';
+    min-width: 880px;
+}
+
+.sidebar {
+    grid-area: sidebar;
+    min-width: 200px;
+    padding-right: 20px;
+    padding-top: 20px;
+}
+
+.main {
+    grid-area: main;
+    min-width: 600px;
+}
+
+.hotel-container {
+    border: 1px black solid;
+    border-radius: 10px;
     height: 200px;
+    max-width: 1000px;
 }
 
-label {
-    font-size: 80%;
-    font-family: Arial;
+.image-placeholder {
+    float: left;
+    padding: 10px 10px;
+    object-fit: cover;
+    width: 180px;
+    height: auto;
 }
 
-.daysInput {
-    width: 40px;
+.grid-container {
+    display: grid;
+    grid-template-areas:
+        'left right';
+        height: 200px;
+}
+
+.left {
+    grid-area: left;
+}
+
+.name {
+    padding-top: 20px;
+    font-size: 28px;
+}
+
+.stars {
+    color: #e2c000;
+    font-size: 20px;
+}
+
+.room {
+    color: #3f3f3f;
+    font-size: 16px;
+    font-weight: bold;
+    padding-top: 4px;
+}
+.mealtype {
+    color: #6b6b6b;
+    font-size: 14px;
+    padding-top: 2px;
+}
+
+.right {
+    grid-area: right;
+}
+
+.hotelID {
+    color: white;
+    border: 1px white solid;
+}
+
+.price {
+    text-align: end;
+    padding-top: 90px;
+    padding-bottom: 0;
+    padding-right: 30px;
+    font-size: 24px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.hotel-button {
+    background-color: #53e5ff;
+    border: none;
+    border-radius: 8px;
+    width: 160px;
+    height: 40px;
+    float: right;
+    margin: 8px 20px;
+}
+
+
+.sidebar-container {
+    width: 200px;
+    height: 400px;
+    background-color: #50c059;
+    border-radius: 6px;
+    float: right;
+}
+
+/*imported from style_index.css*/
+
+.dateInput {
+    width: 120px;
     height: 30px;
     margin: 8px 0;
 }
 
-.dateInput {
-    width: 160px;
+.daysInput {
+    width: 40px;
     height: 30px;
     margin: 8px 0;
 }
@@ -41,50 +133,44 @@ label {
 .submitInput {
     height: 40px;
     width:  160px;
-    margin: 12px 0;
+    margin: 8px 0;
     background-color: #53e5ff;
     border: none;
     border-radius: 8px;
 }
 
-.header { grid-area: header;}
-.right { grid-area: right; }
-.main { grid-area: main; }
 
-.grid-container1 {
-    display: grid;
-    grid-template-areas:
-        'header header header right right'
-        'main main main main main'
-        'main main main main main';
-    gap: 10px;
-    padding: 10px;
-    align-items: center;
-    justify-items: center;
+.days { 
+    grid-area: days; 
+    justify-self: center; 
+    height: 30px;
 }
 
-.destination1 { grid-area: destination1; text-align: left; padding-left: 20px; margin: 6px 0; height: 32px;}
-.destination2 { grid-area: destination2; align-self: center; text-align: left;}
-.days { grid-area: days;  text-align: left; padding-left: 20px;}
-.timespan { grid-area: timespan; }
-.next { grid-area: next; text-align: right; padding-right: 10px;}
+.next { grid-area: next; height: 50px;}
+
+.date1 { 
+    grid-area: date1;
+    width: 160px;
+    height: 30px;
+    justify-self: center;
+}
+.date2 { 
+    grid-area: date2;
+    width: 160px;
+    height: 30px;
+    justify-self: center;
+}
 
 .popup {
     background-color: white;
     cursor: pointer;
     border: 1px solid black;
-    width: 220px;
-    height: 32px;
-    margin: 8px 0;
+    width: 160px;
+    height: 30px;
     right: 20px;
     grid-area: numbers;
-}
-
-.textVon {
-    display: inline-flex;
-    margin: 8px 0;
-    width: 100px;
-    text-align: left;
+    font-family: Arial;
+    align-self: center;
 }
 
 .popupAirport {
@@ -93,27 +179,30 @@ label {
     background-color: white;
     cursor: pointer;
     border: 1px solid black;
-    top: -4px;
-    left: -32px;
-    width: 220px;
-    max-width: 220px;
-    height: 32px;
+    width: 140px;
+    height: 30px;
+    justify-self: center;
+    justify-content: center;
+    align-self: center;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    grid-area: destination;
+    font-family: Arial;
 }
 
 .grid-container2 {
-    background-color: #50c059;
     display: grid;
     grid-template-areas:
-        'destination1 destination1 destination2 numbers'
-        'days days timespan timespan'
-        'popup popup next next';
-    gap: 10px;
-    padding: 10px;
-    border-radius: 8px;
-    min-width: 800px;
+        'destination'
+        'days'
+        'numbers'
+        'date1'
+        'date2'
+        'next';
+    justify-content: center;
+    width: 200px;
+    height: 400px;
 }
 
 
@@ -224,6 +313,7 @@ label {
     position: absolute;
     left: 0px;
     top: 0px;
+    font-family: Arial;
 }
 
 .popupAirport-button {

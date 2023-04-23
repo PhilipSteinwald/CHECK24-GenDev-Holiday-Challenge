@@ -1,0 +1,415 @@
+h1 {
+    color: #50c059;
+    text-align: center;
+    font-size: 175%;
+    font-family: Arial;
+    max-width: 1000px;
+}
+
+h2 {
+    color: #50c059;
+    text-align: center;
+    font-size: 125%;
+    font-family: Arial;
+    max-width: 1000px;
+}
+
+.page-container {
+    display: grid;
+    grid-template-areas:
+        'sidebar main main main';
+    min-width: 880px;
+}
+
+.sidebar {
+    grid-area: sidebar;
+    min-width: 200px;
+    padding-right: 20px;
+    padding-top: 20px;
+}
+
+.main {
+    grid-area: main;
+    min-width: 600px;
+}
+
+.offer-container {
+    border: 1px black solid;
+    border-radius: 10px;
+    display: grid;
+    grid-template-areas:
+        'flights offer offer offer';
+    height: 180px;
+    min-width: 600px;
+    max-width: 1000px;
+}
+
+.grid-containerFlights {
+    grid-area: flights;
+    display: grid;
+    grid-template-areas:
+        'depature1 arrival2 airport'
+        'depature1 arrival2 airport'
+        'arrow1 arrow2 airport'
+        'arrow1 arrow2 palma'
+        'arrival1 depature2 palma'
+        'arrival1 depature2 palma';
+    height: 180px;
+    min-width: 350px;
+    max-width: 450px;
+    border-right: 1px black solid;
+}
+
+.depature1 {
+    grid-area: depature1;
+    display: flex;
+    height: 60px;
+    min-width: 75px;
+    max-width: 100px;
+    padding-left: 10px;
+}
+
+.depature2 {
+    grid-area: depature2;
+    display: flex;
+    height: 60px;
+    min-width: 75px;
+    max-width: 100px;
+}
+
+.arrival1 {
+    grid-area: arrival1;
+    display: flex;
+    height: 60px;
+    min-width: 75px;
+    max-width: 100px;
+    padding-left: 10px;
+}
+
+.arrival2 {
+    grid-area: arrival2;
+    display: flex;
+    height: 60px;
+    min-width: 75px;
+    max-width: 100px;
+}
+
+.arrow1 {
+    grid-area: arrow1;
+    height: 60px;
+    min-width: 75px;
+    max-width: 100px;
+    padding-left: 10px;
+}
+
+.arrow2 {
+    grid-area: arrow2;
+    height: 60px;
+    min-width: 75px;
+    max-width: 100px;
+}
+
+.airport {
+    grid-area: airport;
+    height: 90px;
+    font-family: Arial;
+    min-width: 150px;
+    max-width: 250px;
+}
+
+.palma {
+    grid-area: palma;
+    height: 90px;
+    font-family: Arial;
+    min-width: 150px;
+    max-width: 250px;
+}
+
+.ITAcode {
+    font-size: 150%;
+    font-style: bold;
+}
+
+.airportName {
+    font-size: 80%;
+}
+
+.grid-containerOffer {
+    grid-area: offer;
+    display: grid;
+    grid-template-areas:
+        'left right';
+    height: 180px;
+    min-width: 250px;
+    max-width: 550px;
+}
+
+.left {
+    grid-area: left;
+    min-width: 125px;
+    max-width: 500px;
+}
+
+.room {
+    color: #3f3f3f;
+    font-size: 16px;
+    font-weight: bold;
+    padding-top: 4px;
+}
+.mealtype {
+    color: #6b6b6b;
+    font-size: 14px;
+    padding-top: 2px;
+}
+
+.right {
+    grid-area: right;
+}
+
+.price {
+    text-align: end;
+    padding-top: 100px;
+    padding-bottom: 0;
+    padding-right: 10px;
+    font-size: 20px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.hotel-button {
+    background-color: #53e5ff;
+    border: none;
+    border-radius: 8px;
+    width: 140px;
+    height: 40px;
+    float: right;
+    margin: 8px 8px;
+}
+
+.sidebar-container {
+    width: 200px;
+    height: 400px;
+    background-color: #50c059;
+    border-radius: 6px;
+    float: right;
+}
+
+/*imported from style_result.css*/
+
+.dateInput {
+    width: 120px;
+    height: 30px;
+    margin: 8px 0;
+}
+
+.daysInput {
+    width: 40px;
+    height: 30px;
+    margin: 8px 0;
+}
+
+.textInput {
+    width: 200px;
+    height: 30px;
+    margin: 8px 0;
+}
+
+.submitInput {
+    height: 40px;
+    width:  160px;
+    margin: 8px 0;
+    background-color: #53e5ff;
+    border: none;
+    border-radius: 8px;
+}
+
+
+.days { 
+    grid-area: days; 
+    justify-self: center; 
+    height: 30px;
+}
+
+.next { grid-area: next; height: 50px;}
+
+.date1 { 
+    grid-area: date1;
+    width: 160px;
+    height: 30px;
+    justify-self: center;
+}
+.date2 { 
+    grid-area: date2;
+    width: 160px;
+    height: 30px;
+    justify-self: center;
+}
+
+.popup {
+    background-color: white;
+    cursor: pointer;
+    border: 1px solid black;
+    width: 160px;
+    height: 30px;
+    right: 20px;
+    grid-area: numbers;
+    font-family: Arial;
+    align-self: center;
+}
+
+.popupAirport {
+    display: inline-flex;
+    position: relative;
+    background-color: white;
+    cursor: pointer;
+    border: 1px solid black;
+    width: 140px;
+    height: 30px;
+    justify-self: center;
+    justify-content: center;
+    align-self: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    grid-area: destination;
+    font-family: Arial;
+}
+
+.grid-container2 {
+    display: grid;
+    grid-template-areas:
+        'destination'
+        'days'
+        'numbers'
+        'date1'
+        'date2'
+        'next';
+    justify-content: center;
+    width: 200px;
+    height: 400px;
+}
+
+
+.parent-minus {
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 2px;
+    margin: 8px 0;
+    grid-area: minus1;
+}
+
+.parent-number {
+    border: none;
+    outline: none;
+    border-radius: 0px;
+    font-size: 16px;
+    text-align: center;
+    width: 30px;
+    grid-area: number1;
+}
+
+.parent-plus {
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 2px;
+    margin: 8px 0;
+    grid-area: plus1;
+}
+
+.parents {
+    grid-area: parents;
+}
+
+.children-minus {
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 2px;
+    margin: 8px 0;
+    grid-area: minus2;
+}
+
+.children-number {
+    border: none;
+    outline: none;
+    border-radius: 0px;
+    font-size: 16px;
+    text-align: center;
+    width: 30px;
+    grid-area: number2;
+}
+
+.children-plus {
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 2px;
+    margin: 8px 0;
+    grid-area: plus2;
+}
+
+.children {
+    grid-area: children;
+}
+
+.popup-button {
+    grid-area: button;
+}
+
+.popup-container {
+    visibility: hidden;
+    display: grid;
+    grid-template-areas:
+        'minus1 number1 plus1 parents parents parents'
+        'minus2 number2 plus2 children children children'
+        'button button button button button button';
+    width: 300px;
+    background-color: white;
+    border: 1px solid black;
+    align-items: center;
+    justify-items: center;
+    grid-area: popup;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+}
+
+.show {
+    visibility: visible;
+}
+
+.hidden-inputs {
+    display: flex;
+    visibility: hidden;
+    width: 0;
+    height: 0;
+    overflow: hidden;
+}
+
+.popupAirport-container {
+    background-color: white;
+    border-top: 1px solid black;
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+    text-align: left;
+    overflow-y: scroll;
+    width: 250px;
+    height: 100px;
+    padding-left: 5px;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    font-family: Arial;
+}
+
+.popupAirport-button {
+    background-color: white;
+    border: 1px solid black;
+    width: 255px;
+    height: 30px;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+}
+
+.popupAirport-buttonInside {
+    width: 255px;
+    height: 30px;
+}
