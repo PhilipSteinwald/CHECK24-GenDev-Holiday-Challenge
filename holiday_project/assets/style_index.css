@@ -213,12 +213,24 @@ label {
 
 .popupAirport-container {
     background-color: white;
-    border: 1px solid black;
+    border-top: 1px solid black;
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+    text-align: left;
     overflow-y: scroll;
     width: 250px;
     height: 100px;
-    text-align: left;
     padding-left: 5px;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+}
+
+.popupAirport-button {
+    background-color: white;
+    border: 1px solid black;
+    width: 255px;
+    height: 30px;
     position: absolute;
     left: 0px;
     top: 0px;

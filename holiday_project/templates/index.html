@@ -21,8 +21,6 @@
             <img src="{% static 'beach.png'%}" alt="Beach Pictures">
         </div>
         <div class="main">
-            
-        
             <form class="grid-container2" action="/response" method="get">
                 <div class="destination1">
                     <label class="textVon">Von: &emsp; </label>
@@ -53,17 +51,17 @@
 
     <div class="popup-container" id="myPopup">
         <input type="button" class="parent-minus" onclick="decrementParentValue()" value="-" />
-        <input type="text" id="parent-number" class="parent-number" value="1"/>
+        <input type="text" id="parent-number" class="parent-number" value="1" readonly/>
         <input type="button" class="parent-plus" onclick="incrementParentValue()" value="+" />
         <label class="parents">Erwachsene</label>
         <input type="button" class="children-minus" onclick="decrementChildrenValue()" value="-" />
-        <input type="text" id="children-number" class="children-number" value="0"/>
+        <input type="text" id="children-number" class="children-number" value="0" readonly/>
         <input type="button" class="children-plus" onclick="incrementChildrenValue()" value="+" />
         <label class="children">Kinder</label>
         <input type="button" class="popup-button" onclick="safePopup()" value="Übernehmen"/>
     </div>
 
-    <div class="popupAirport-container" id="myAirportPopup" style="visibility: hidden;">
+    <div class="popupAirport-container" id="myAirportPopupTop" style="visibility: hidden;">
         <input type="checkbox" onclick="tickBox('FRA')"/>
         <label>Frankfurt(FRA)</label><br>
         <input type="checkbox" onclick="tickBox('MUC')"/>
@@ -76,12 +74,94 @@
         <label>Düsseldorf(DUS)</label><br>
         <input type="checkbox" onclick="tickBox('HAM')"/>
         <label>Hamburg(HAM)</label><br>
+        <input type="checkbox" onclick="tickBox('VIE')"/>
+        <label>Wien(VIE)</label><br>
+        <input type="checkbox" onclick="tickBox('NUE')"/>
+        <label>Nürnberg(NUE)</label><br>
         <input type="checkbox" onclick="tickBox('SCN')"/>
         <label>Saarbrücken(SCN)</label><br>
         <input type="checkbox" onclick="tickBox('STR')"/>
         <label>Stuttgart(STR)</label><br>
+        <input type="checkbox" onclick="tickBox('HAJ')"/>
+        <label>Hannover(HAJ)</label><br>
+        <input type="checkbox" onclick="tickBox('BSL')"/>
+        <label>Basel(BSL)</label><br>
         <input type="checkbox" onclick="tickBox('FDH')"/>
         <label>Friedrichshafen(FDH)</label><br>
+        <input type="checkbox" onclick="tickBox('FMO')"/>
+        <label>Münster/Osnabrück(FMO)</label><br>
+        <input type="checkbox" onclick="tickBox('CGN')"/>
+        <label>Köln/Bonn(CGN)</label><br>
+        <input type="checkbox" onclick="tickBox('PAD')"/>
+        <label>Paderborn(PAD)</label><br>
+        <input type="checkbox" onclick="tickBox('FMM')"/>
+        <label>Memmingen(FMM)</label><br>
+        <input type="checkbox" onclick="tickBox('DRS')"/>
+        <label>Dresden(DRS)</label><br>
+        <input type="checkbox" onclick="tickBox('BRE')"/>
+        <label>Bremen(BRE)</label><br>
+        <input type="checkbox" onclick="tickBox('DTM')"/>
+        <label>Dortmund(DTM)</label><br>
+        <input type="checkbox" onclick="tickBox('NRN')"/>
+        <label>Niederrhein(NRN)</label><br>
+        <input type="checkbox" onclick="tickBox('HHN')"/>
+        <label>Frankfurt-Hain(HHN)</label><br>
+        <input type="checkbox" onclick="tickBox('FKB')"/>
+        <label>Karlsruhe/Baden-Baden(FKB)</label><br>
+        <input type="checkbox" onclick="tickBox('ZRH')"/>
+        <label>Zürich(ZRH)</label><br>
+        <input type="checkbox" onclick="tickBox('SZG')"/>
+        <label>Salzburg(SZG)</label><br>
+        <input type="checkbox" onclick="tickBox('LUX')"/>
+        <label>Luxemburg(LUX)</label><br>
+        <input type="checkbox" onclick="tickBox('AMS')"/>
+        <label>Amsterdam(AMS)</label><br>
+        <input type="checkbox" onclick="tickBox('PRG')"/>
+        <label>Prag(PRG)</label><br>
+        <input type="checkbox" onclick="tickBox('INN')"/>
+        <label>Innsbruck(INN)</label><br>
+        <input type="checkbox" onclick="tickBox('KSF')"/>
+        <label>Kassel(KSF)</label><br>
+        <input type="checkbox" onclick="tickBox('LNZ')"/>
+        <label>Linz(LNZ)</label><br>
+        <input type="checkbox" onclick="tickBox('EIN')"/>
+        <label>Eindhoven(EIN)</label><br>
+        <input type="checkbox" onclick="tickBox('SXB')"/>
+        <label>Straßburg(SXB)</label><br>
+        <input type="checkbox" onclick="tickBox('BLL')"/>
+        <label>Billund(BLL)</label><br>
+        <input type="checkbox" onclick="tickBox('LBC')"/>
+        <label>Lübeck(LBC)</label><br>
+        <input type="checkbox" onclick="tickBox('BRU')"/>
+        <label>Brüssel(BRU)</label><br>
+        <input type="checkbox" onclick="tickBox('GRZ')"/>
+        <label>Graz(GRZ)</label><br>
+        <input type="checkbox" onclick="tickBox('GWT')"/>
+        <label>Sylt(GWT)</label><br>
+        <input type="checkbox" onclick="tickBox('CRL')"/>
+        <label>Brüssel-Süd(CRL)</label><br>
+        <input type="checkbox" onclick="tickBox('CSO')"/>
+        <label>Madgeburg(CSO)</label><br>
+        <input type="checkbox" onclick="tickBox('WAW')"/>
+        <label>Warschau(WAW)</label><br>
+        <input type="checkbox" onclick="tickBox('GVA')"/>
+        <label>Genf(GVA)</label><br>
+        <input type="checkbox" onclick="tickBox('ERF')"/>
+        <label>Erfurt-Weimar(ERF)</label><br>
+        <input type="checkbox" onclick="tickBox('KRK')"/>
+        <label>Krakau(KRK)</label><br>
+        <input type="checkbox" onclick="tickBox('BRN')"/>
+        <label>Bern(BRN)</label><br>
+        <input type="checkbox" onclick="tickBox('RLG')"/>
+        <label>Rostock(RLG)</label><br>
+        <input type="checkbox" onclick="tickBox('KLU')"/>
+        <label>Klagenfurt(KLU)</label><br>
+        <input type="checkbox" onclick="tickBox('RTM')"/>
+        <label>Rotterdam/Den Haag(RTM)</label><br>
+    </div>
+
+    <div class="popupAirport-button" id="myAirportPopupBottom" style="visibility: hidden;">
+        <input type="button" onclick="popupFuncAirport()" value="Übernehmen"/>
     </div>
 
     <script>
@@ -96,12 +176,13 @@
     }
 
     function decrementParentValue() {
-        var value = parseInt(document.getElementById('parent-number').value, 10);
-        value = isNaN(value) ? 1 : value;
-        if(value > 1){
-            value--;
+        var valueC = parseInt(document.getElementById('children-number').value, 10);
+        var valueP = parseInt(document.getElementById('parent-number').value, 10);
+        value = (isNaN(valueC) ? 0 : valueC) + (isNaN(valueP) ? 0 : valueP);
+        if(value > 1 && valueP > 0){
+            valueP--;
         }
-        document.getElementById('parent-number').value = value;
+        document.getElementById('parent-number').value = valueP;
     }
 
     function incrementParentValue() {
@@ -112,12 +193,13 @@
     }
 
     function decrementChildrenValue() {
-        var value = parseInt(document.getElementById('children-number').value, 10);
-        value = isNaN(value) ? 0 : value;
-        if(value > 0){
-            value--;
+        var valueC = parseInt(document.getElementById('children-number').value, 10);
+        var valueP = parseInt(document.getElementById('parent-number').value, 10);
+        value = (isNaN(valueC) ? 0 : valueC) + (isNaN(valueP) ? 0 : valueP);
+        if(value > 1 && valueC > 0){
+            valueC--;
         }
-        document.getElementById('children-number').value = value;
+        document.getElementById('children-number').value = valueC;
     }
 
     function incrementChildrenValue() {
@@ -137,15 +219,20 @@
 
 
     function popupFuncAirport() {
-        var popup = document.getElementById("myAirportPopup");
+        var popup1 = document.getElementById("myAirportPopupTop");
+        var popup2 = document.getElementById("myAirportPopupBottom");
         var popupOrigin = document.getElementById("popupAirport");
         var rect = popupOrigin.getBoundingClientRect();
-        popup.style.top = (rect.top + 38) + 'px';
-        popup.style.left = (rect.left - 5) + 'px';
-        if(popup.style.visibility == 'hidden') {
-            popup.style.visibility = 'visible';
+        popup1.style.top = (rect.top + 38) + 'px';
+        popup1.style.left = (rect.left - 5) + 'px';
+        popup2.style.top = (rect.top + 138) + 'px';
+        popup2.style.left = (rect.left - 5) + 'px';
+        if(popup1.style.visibility == 'hidden') {
+            popup1.style.visibility = 'visible';
+            popup2.style.visibility = 'visible';
         }else {
-            popup.style.visibility = 'hidden';
+            popup1.style.visibility = 'hidden';
+            popup2.style.visibility = 'hidden';
         }
     }
 
