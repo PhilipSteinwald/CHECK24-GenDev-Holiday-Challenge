@@ -42,22 +42,67 @@
         </div>
         <div class="main">
             <h1>Hotels für Ihre Mallorca-Pauschalreise</h1><br>
+            {% for offer in offer_list %}
             <div class="hotel-container"> 
                 <img class="image-placeholder" src="{% static 'hotel.jpg'%}" alt="Hotel Image Placeholder">
                 <div class="grid-container">
                     <div class="left">
-                        <div class="name">Hotel am Meer</div>
-                        <div class="stars">&#9733;&#9733;&#9733;</div>
-                        <div class="room">1x Doppelzimmer</div>
-                        <div class="mealtype">ohne Verpflegung</div>
+                        <div class="name"> {{ offer.1.hotelname }} </div>
+                        {% if offer.1.hotelstars == 1.0 %}
+                            <div class="stars">&#9733;</div>
+                        {% elif offer.1.hotelstars == 2.0 %}
+                            <div class="stars">&#9733;&#9733;</div>
+                        {% elif offer.1.hotelstars == 3.0 %}
+                            <div class="stars">&#9733;&#9733;&#9733;</div>
+                        {% elif offer.1.hotelstars == 4.0 %}
+                            <div class="stars">&#9733;&#9733;&#9733;&#9733;</div>
+                        {% elif offer.1.hotelstars == 5.0 %}
+                            <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                        {% else %}
+                            <div class="stars"></div>
+                        {% endif %} 
+                        {% if offer.0.roomtype == 'SINGLE' %}
+                            <div class="room"> 1x Einzelzimmer </div>
+                        {% elif offer.0.roomtype == 'DOUBLE' %}
+                            <div class="room"> 1x Doppelzimmer </div>
+                        {% elif offer.0.roomtype == 'FAMILY' %}
+                            <div class="room"> 1x Familienzimmer </div>
+                        {% elif offer.0.roomtype == 'APARTMENT' %}
+                            <div class="room"> 1x Apartment </div>
+                        {% elif offer.0.roomtype == 'STUDIO' %}
+                            <div class="room"> 1x Studio </div>
+                        {% elif offer.0.roomtype == 'SUITE' %}
+                            <div class="room"> 1x Suite </div>
+                        {% elif offer.0.roomtype == 'ACCORDINGDESCRIPTION' %}
+                            <div class="room"> 1x Zimmer </div>
+                        {% else %}
+                            <div class="room"> 1x{{ offer.0.roomtype }} </div>
+                        {% endif %}
+                        {% if offer.0.mealtype == 'NONE' %}
+                            <div class="mealtype"> Keine Verpflegung </div>
+                        {% elif offer.0.mealtype == 'BREAKFAST' %}
+                            <div class="mealtype"> Frühstück </div>
+                        {% elif offer.0.mealtype == 'HALFBOARD' %}
+                            <div class="mealtype"> Halbpension </div>
+                        {% elif offer.0.mealtype == 'ALLINCLUSIVE' %}
+                            <div class="mealtype"> Alles Inklusive </div>
+                        {% else %}
+                            <div class="mealtype"> {{ offer.0.mealtype }} </div>
+                        {% endif %} 
                     </div>
                     <form class="right" action="/result" method="get">
-                        <input type="text" class="hotelID" id="hotelID" name="hotelID" value="1" required>
-                        <div class="price">Preis: 899€</div>
+                        <input type="text" class="hidden-inputs" name="hotelID" value={{offer.1.hotelid}} required>
+                        <input type="text" class="hidden-inputs" name="days" value={{days}} required>
+                        <input type="text" class="hidden-inputs" name="firstDate" value={{firstDate}} required>
+                        <input type="text" class="hidden-inputs" name="secondDate" value={{secondDate}} required>
+                        <input type="text" class="hidden-inputs" name="airports" value={{airports}} required>
+                        <input type="text" class="hidden-inputs" name="persons" value={{persons}} required>
+                        <div class="price">Preis: {{ offer.0.price }}€</div>
                         <input type="submit" class="hotel-button" value="zu den Angeboten">
                     </form>
                 </div>
             </div><br>
+            {% endfor %}
         </div>
     </div>
 
