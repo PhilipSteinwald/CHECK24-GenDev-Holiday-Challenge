@@ -156,7 +156,7 @@ h1 {
     justify-self: center;
 }
 
-.popup {
+.popupPerson {
     background-color: white;
     cursor: pointer;
     border: 1px solid black;
@@ -265,7 +265,7 @@ h1 {
     grid-area: button;
 }
 
-.popup-container {
+.popupPerson-container {
     visibility: hidden;
     display: grid;
     grid-template-areas:

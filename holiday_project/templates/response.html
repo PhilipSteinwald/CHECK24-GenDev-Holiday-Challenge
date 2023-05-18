@@ -9,7 +9,7 @@
 
     <title>Response Page</title>
     <link rel="shortcut icon" href="{% static 'icon.png'%}" type="image/x-icon" />
-    <link rel="stylesheet" href="{% static 'style_response.css'%}">
+    <link rel="stylesheet" href="{% static 'styleResponse.css'%}">
 </head>
 
 <body>
@@ -18,9 +18,9 @@
         <div class="sidebar">
             <div class="sidebar-container">
                 <form class="grid-container2" action="/response" method="get">
-                    <label class="popupAirport" id="popupAirport" onclick="popupFuncAirport()">"Abflughafen"
+                    <label class="popupAirport" id="popupAirport" onclick="popupAirportFunc()">"Abflughafen"
                     </label>
-                    <label class="popup" id="popup" onclick="popupFunc()">1 Erw. 0 Kin.
+                    <label class="popupPerson" id="popupPerson" onclick="popupPersonFunc()">1 Erw. 0 Kin.
                     </label>
                     <div class="days">
                         <label>Dauer: &nbsp;</label>
@@ -106,7 +106,7 @@
         </div>
     </div>
 
-    <div class="popup-container" id="myPopup">
+    <div class="popupPerson-container" id="myPersonPopup">
         <input type="button" class="parent-minus" onclick="decrementParentValue()" value="-" />
         <input type="text" id="parent-number" class="parent-number" value="1" readonly/>
         <input type="button" class="parent-plus" onclick="incrementParentValue()" value="+" />
@@ -116,6 +116,10 @@
         <input type="button" class="children-plus" onclick="incrementChildrenValue()" value="+" />
         <label class="children">Kinder</label>
         <input type="button" class="popup-button" onclick="safePopup()" value="Übernehmen"/>
+    </div>
+
+    <div class="popupAirport-button" id="myAirportPopupBottom" style="visibility: hidden;">
+        <input type="button" style="width: 255px; height: 30px;" onclick="popupAirportFunc()" value="Übernehmen"/>
     </div>
 
     <div class="popupAirport-container" id="myAirportPopupTop" style="visibility: hidden;">
@@ -217,24 +221,50 @@
         <label>Rotterdam/Den Haag(RTM)</label><br>
     </div>
 
-    <div class="popupAirport-button" id="myAirportPopupBottom" style="visibility: hidden;">
-        <input type="button" class="popupAirport-buttonInside" onclick="popupFuncAirport()" value="Übernehmen"/>
-    </div>
-
     <script>
-
-    function popupFunc() {
-        var popup = document.getElementById("myPopup");
-        var popupOrigin = document.getElementById("popup");
+    //functions to make the popups visible and to position them
+    function popupPersonFunc() {
+        var popup = document.getElementById("myPersonPopup");
+        var popupOrigin = document.getElementById("popupPerson");
         var rect = popupOrigin.getBoundingClientRect();
         popup.style.top = (rect.top + 38)  + 'px';
-        popup.style.left = (rect.left - 50) + 'px';
+        if(rect.left - 50 < 5){
+            popup.style.left = '5px';
+        }else {
+            popup.style.left = (rect.left - 50) + 'px';
+        }
         popup.classList.toggle("show");
     }
 
+    function popupAirportFunc() {
+        var popup1 = document.getElementById("myAirportPopupTop");
+        var popup2 = document.getElementById("myAirportPopupBottom");
+        var popupOrigin = document.getElementById("popupAirport");
+        var rect = popupOrigin.getBoundingClientRect();
+        popup1.style.top = (rect.top + 38) + 'px';
+        popup2.style.top = (rect.top + 138) + 'px';
+        if(rect.left - 40 < 5){
+            popup1.style.left = '5px';
+            popup2.style.left = '5px';
+        }else {
+            popup1.style.left = (rect.left - 40) + 'px';
+            popup2.style.left = (rect.left - 40) + 'px';
+        }
+        if(popup1.style.visibility == 'hidden') {
+            popup1.style.visibility = 'visible';
+            popup2.style.visibility = 'visible';
+        }else {
+            popup1.style.visibility = 'hidden';
+            popup2.style.visibility = 'hidden';
+        }
+    }
+
+
+    //functions to increment/decrement the value for the number of children/parents
     function decrementParentValue() {
         var valueC = parseInt(document.getElementById('children-number').value, 10);
         var valueP = parseInt(document.getElementById('parent-number').value, 10);
+        //check to ensure that at least one person is selected
         value = (isNaN(valueC) ? 0 : valueC) + (isNaN(valueP) ? 0 : valueP);
         if(value > 1 && valueP > 0){
             valueP--;
@@ -252,6 +282,7 @@
     function decrementChildrenValue() {
         var valueC = parseInt(document.getElementById('children-number').value, 10);
         var valueP = parseInt(document.getElementById('parent-number').value, 10);
+        //check to ensure that at least one person is selected
         value = (isNaN(valueC) ? 0 : valueC) + (isNaN(valueP) ? 0 : valueP);
         if(value > 1 && valueC > 0){
             valueC--;
@@ -266,45 +297,38 @@
         document.getElementById('children-number').value = value;
     }
 
+
+    //function to safe the values in the following format: xErw.xKin.
     function safePopup() {
         var value1 = parseInt(document.getElementById('parent-number').value, 10);
         var value2 = parseInt(document.getElementById('children-number').value, 10);
-        document.getElementById('popup').innerHTML = value1 + ' Erw. ' + value2 + ' Kin.';
+        document.getElementById('popupPerson').innerHTML = value1 + ' Erw. ' + value2 + ' Kin.';
         document.getElementById('persons').value = value1 + ' Erw. ' + value2 + ' Kin.';
-        popupFunc();
+        popupPersonFunc();
     }
 
 
-    function popupFuncAirport() {
-        var popup1 = document.getElementById("myAirportPopupTop");
-        var popup2 = document.getElementById("myAirportPopupBottom");
-        var popupOrigin = document.getElementById("popupAirport");
-        var rect = popupOrigin.getBoundingClientRect();
-        popup1.style.top = (rect.top + 38) + 'px';
-        popup1.style.left = (rect.left - 55) + 'px';
-        popup2.style.top = (rect.top + 138) + 'px';
-        popup2.style.left = (rect.left - 55) + 'px';
-        if(popup1.style.visibility == 'hidden') {
-            popup1.style.visibility = 'visible';
-            popup2.style.visibility = 'visible';
-        }else {
-            popup1.style.visibility = 'hidden';
-            popup2.style.visibility = 'hidden';
-        }
-    }
-
+    //function to update the selected airports
     function tickBox(ita) {
         var popup = document.getElementById("popupAirport");
+        //check whether no airport is selected at the moment
         if(popup.innerHTML.includes("Abflughafen")) {
             popup.innerHTML = ita;
             document.getElementById('airports').value = ita;
         }else {
+            //check whether the airport is already selected or not
             if(popup.innerHTML.includes(ita)){
+                //updates the displayed list of selected airports to remove the airport
                 var ita_list = popup.innerHTML.split(', ');
                 var result = '';
                 for(var i=0;i<ita_list.length;i++){
                     if(!ita_list[i].includes(ita)){
-                        if(i > 0 && !ita_list[0].includes(ita)){
+                        if(ita_list[0].includes(ita)){
+                            if(i > 1){
+                                result += ', ';
+                            }
+                        }
+                        else if(i > 0){
                             result += ', ';
                         }
                         result += ita_list[i];
@@ -318,6 +342,7 @@
                     document.getElementById('airports').value = result;
                 }
             }else {
+                //adds the airport at the end
                 popup.innerHTML += ', ' + ita;
                 document.getElementById('airports').value += ', ' + ita;
             }

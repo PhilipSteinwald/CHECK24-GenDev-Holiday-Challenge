@@ -69,14 +69,13 @@ label {
 .timespan { grid-area: timespan; }
 .next { grid-area: next; text-align: right; padding-right: 10px;}
 
-.popup {
+.popupPerson {
     background-color: white;
     cursor: pointer;
     border: 1px solid black;
     width: 220px;
     height: 32px;
     margin: 8px 0;
-    right: 20px;
     grid-area: numbers;
 }
 
@@ -181,7 +180,7 @@ label {
     grid-area: button;
 }
 
-.popup-container {
+.popupPerson-container {
     visibility: hidden;
     display: grid;
     grid-template-areas:
