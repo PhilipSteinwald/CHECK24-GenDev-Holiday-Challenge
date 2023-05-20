@@ -7,5 +7,5 @@ urlpatterns = [
     path('result/', views.result),
     path('final/', views.final),
     path('setup/', views.hotel_setup),
-    path('test/', views.test_setup),
+    #path('test/', views.test_setup),
 ]

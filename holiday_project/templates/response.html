@@ -48,44 +48,78 @@
                 <div class="grid-container">
                     <div class="left">
                         <div class="name"> {{ offer.1.hotelname }} </div>
-                        {% if offer.1.hotelstars == 1.0 %}
+                        {% if offer.1.hotelstars == 1 %}
                             <div class="stars">&#9733;</div>
-                        {% elif offer.1.hotelstars == 2.0 %}
+                        {% elif offer.1.hotelstars == 2 %}
                             <div class="stars">&#9733;&#9733;</div>
-                        {% elif offer.1.hotelstars == 3.0 %}
+                        {% elif offer.1.hotelstars == 3 %}
                             <div class="stars">&#9733;&#9733;&#9733;</div>
-                        {% elif offer.1.hotelstars == 4.0 %}
+                        {% elif offer.1.hotelstars == 4 %}
                             <div class="stars">&#9733;&#9733;&#9733;&#9733;</div>
-                        {% elif offer.1.hotelstars == 5.0 %}
+                        {% elif offer.1.hotelstars == 5 %}
                             <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
                         {% else %}
                             <div class="stars"></div>
-                        {% endif %} 
-                        {% if offer.0.roomtype == 'SINGLE' %}
+                        {% endif %}
+                        {% if offer.0.roomtype == 0 %}
+                            <div class="room"> Siehe Beschreibung </div>
+                        {% elif offer.0.roomtype == 1 %}
                             <div class="room"> 1x Einzelzimmer </div>
-                        {% elif offer.0.roomtype == 'DOUBLE' %}
+                        {% elif offer.0.roomtype == 2 %}
                             <div class="room"> 1x Doppelzimmer </div>
-                        {% elif offer.0.roomtype == 'FAMILY' %}
-                            <div class="room"> 1x Familienzimmer </div>
-                        {% elif offer.0.roomtype == 'APARTMENT' %}
-                            <div class="room"> 1x Apartment </div>
-                        {% elif offer.0.roomtype == 'STUDIO' %}
-                            <div class="room"> 1x Studio </div>
-                        {% elif offer.0.roomtype == 'SUITE' %}
+                        {% elif offer.0.roomtype == 3 %}
+                            <div class="room"> 1x Dreierzimmer </div>
+                        {% elif offer.0.roomtype == 4 %}
+                            <div class="room"> 1x Viererzimmer </div>
+                        {% elif offer.0.roomtype == 5 %}
+                            <div class="room"> 1x Juniorsuite </div>
+                        {% elif offer.0.roomtype == 6 %}
                             <div class="room"> 1x Suite </div>
-                        {% elif offer.0.roomtype == 'ACCORDINGDESCRIPTION' %}
-                            <div class="room"> 1x Zimmer </div>
+                        {% elif offer.0.roomtype == 7 %}
+                            <div class="room"> 1x Apartment </div>
+                        {% elif offer.0.roomtype == 8 %}
+                            <div class="room"> 1x Studio </div>
+                        {% elif offer.0.roomtype == 9 %}
+                            <div class="room"> 1x Superior-Zimmer </div>
+                        {% elif offer.0.roomtype == 10 %}
+                            <div class="room"> 1x Economy-Zimmer </div>
+                        {% elif offer.0.roomtype == 11 %}
+                            <div class="room"> 1x Familienzimmer </div>
+                        {% elif offer.0.roomtype == 12 %}
+                            <div class="room"> 1x Bungalow </div>
+                        {% elif offer.0.roomtype == 13 %}
+                            <div class="room"> 1x Deluxe-Zimmer </div>
+                        {% elif offer.0.roomtype == 14 %}
+                            <div class="room"> 1x Mehrbettzimmer </div>
+                        {% elif offer.0.roomtype == 15 %}
+                            <div class="room"> 1x Twin-Zimmer </div>
+                        {% elif offer.0.roomtype == 16 %}
+                            <div class="room"> 1x Villa </div>
+                        {% elif offer.0.roomtype == 17 %}
+                            <div class="room"> 1x Ferienhaus </div>
+                        {% elif offer.0.roomtype == 18 %}
+                            <div class="room"> 1x Duplex-Zimmer </div>
                         {% else %}
                             <div class="room"> 1x{{ offer.0.roomtype }} </div>
                         {% endif %}
-                        {% if offer.0.mealtype == 'NONE' %}
+                        {% if offer.0.mealtype == 0 %}
                             <div class="mealtype"> Keine Verpflegung </div>
-                        {% elif offer.0.mealtype == 'BREAKFAST' %}
+                        {% elif offer.0.mealtype == 1 %}
                             <div class="mealtype"> Frühstück </div>
-                        {% elif offer.0.mealtype == 'HALFBOARD' %}
+                        {% elif offer.0.mealtype == 2 %}
                             <div class="mealtype"> Halbpension </div>
-                        {% elif offer.0.mealtype == 'ALLINCLUSIVE' %}
+                        {% elif offer.0.mealtype == 3 %}
+                            <div class="mealtype"> Halbpension+ </div>
+                        {% elif offer.0.mealtype == 4 %}
+                            <div class="mealtype"> Vollpension </div>
+                        {% elif offer.0.mealtype == 5 %}
+                            <div class="mealtype"> Vollpension+ </div>
+                        {% elif offer.0.mealtype == 6 %}
                             <div class="mealtype"> Alles Inklusive </div>
+                        {% elif offer.0.mealtype == 7 %}
+                            <div class="mealtype"> Alles Inklusive+ </div>
+                        {% elif offer.0.mealtype == 8 %}
+                            <div class="mealtype"> Siehe Beschreibung </div>
                         {% else %}
                             <div class="mealtype"> {{ offer.0.mealtype }} </div>
                         {% endif %} 

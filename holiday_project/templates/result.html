@@ -173,34 +173,68 @@
                 </div>
                 <div class="grid-containerOffer">
                     <div class="left">
-                    {% if offer.8 == 'SINGLE' %}
-                        <div class="room"> 1x Einzelzimmer </div>
-                    {% elif offer.8 == 'DOUBLE' %}
-                        <div class="room"> 1x Doppelzimmer </div>
-                    {% elif offer.8 == 'FAMILY' %}
-                        <div class="room"> 1x Familienzimmer </div>
-                    {% elif offer.8 == 'APARTMENT' %}
-                        <div class="room"> 1x Apartment </div>
-                    {% elif offer.8 == 'STUDIO' %}
-                        <div class="room"> 1x Studio </div>
-                    {% elif offer.8 == 'SUITE' %}
-                        <div class="room"> 1x Suite </div>
-                    {% elif offer.8 == 'ACCORDINGDESCRIPTION' %}
-                        <div class="room"> 1x Zimmer </div>
-                    {% else %}
-                        <div class="room"> 1x{{ offer.8 }} </div>
-                    {% endif %}
-                    {% if offer.9 == 'NONE' %}
-                        <div class="mealtype"> Keine Verpflegung </div>
-                    {% elif offer.9 == 'BREAKFAST' %}
-                        <div class="mealtype"> Frühstück </div>
-                    {% elif offer.9 == 'HALFBOARD' %}
-                        <div class="mealtype"> Halbpension </div>
-                    {% elif offer.9 == 'ALLINCLUSIVE' %}
-                        <div class="mealtype"> Alles Inklusive </div>
-                    {% else %}
-                        <div class="mealtype"> {{ offer.9 }} </div>
-                    {% endif %} 
+                        {% if offer.8 == 0 %}
+                            <div class="room"> Siehe Beschreibung </div>
+                        {% elif offer.8 == 1 %}
+                            <div class="room"> 1x Einzelzimmer </div>
+                        {% elif offer.8 == 2 %}
+                            <div class="room"> 1x Doppelzimmer </div>
+                        {% elif offer.8 == 3 %}
+                            <div class="room"> 1x Dreierzimmer </div>
+                        {% elif offer.8 == 4 %}
+                            <div class="room"> 1x Viererzimmer </div>
+                        {% elif offer.8 == 5 %}
+                            <div class="room"> 1x Juniorsuite </div>
+                        {% elif offer.8 == 6 %}
+                            <div class="room"> 1x Suite </div>
+                        {% elif offer.8. == 7 %}
+                            <div class="room"> 1x Apartment </div>
+                        {% elif offer.8 == 8 %}
+                            <div class="room"> 1x Studio </div>
+                        {% elif offer.8 == 9 %}
+                            <div class="room"> 1x Superior-Zimmer </div>
+                        {% elif offer.8 == 10 %}
+                            <div class="room"> 1x Economy-Zimmer </div>
+                        {% elif offer.8 == 11 %}
+                            <div class="room"> 1x Familienzimmer </div>
+                        {% elif offer.8 == 12 %}
+                            <div class="room"> 1x Bungalow </div>
+                        {% elif offer.8 == 13 %}
+                            <div class="room"> 1x Deluxe-Zimmer </div>
+                        {% elif offer.8 == 14 %}
+                            <div class="room"> 1x Mehrbettzimmer </div>
+                        {% elif offer.8 == 15 %}
+                            <div class="room"> 1x Twin-Zimmer </div>
+                        {% elif offer.8 == 16 %}
+                            <div class="room"> 1x Villa </div>
+                        {% elif offer.8 == 17 %}
+                            <div class="room"> 1x Ferienhaus </div>
+                        {% elif offer.8 == 18 %}
+                            <div class="room"> 1x Duplex-Zimmer </div>
+                        {% else %}
+                            <div class="room"> 1x{{ offer.8 }} </div>
+                        {% endif %}
+                        {% if offer.9 == 0 %}
+                            <div class="mealtype"> Keine Verpflegung </div>
+                        {% elif offer.9 == 1 %}
+                            <div class="mealtype"> Frühstück </div>
+                        {% elif offer.9 == 2 %}
+                            <div class="mealtype"> Halbpension </div>
+                        {% elif offer.9 == 3 %}
+                            <div class="mealtype"> Halbpension+ </div>
+                        {% elif offer.9 == 4 %}
+                            <div class="mealtype"> Vollpension </div>
+                        {% elif offer.9 == 5 %}
+                            <div class="mealtype"> Vollpension+ </div>
+                        {% elif offer.9 == 6 %}
+                            <div class="mealtype"> Alles Inklusive </div>
+                        {% elif offer.9 == 7 %}
+                            <div class="mealtype"> Alles Inklusive+ </div>
+                        {% elif offer.9 == 8 %}
+                            <div class="mealtype"> Siehe Beschreibung </div>
+                        {% else %}
+                            <div class="mealtype"> {{ offer.9 }} </div>
+                        {% endif %}
                     </div>
                     <form class="right" action="/final" method="get">
                         <div class="price">Preis: {{ offer.11 }}€</div>
