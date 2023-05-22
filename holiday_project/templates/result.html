@@ -235,6 +235,9 @@
                         {% else %}
                             <div class="mealtype"> {{ offer.9 }} </div>
                         {% endif %}
+                        {% if offer.10 == "True" %}
+                            <div class="mealtype"> Meerblick </div>
+                        {% endif %}
                     </div>
                     <form class="right" action="/final" method="get">
                         <div class="price">Preis: {{ offer.11 }}€</div>

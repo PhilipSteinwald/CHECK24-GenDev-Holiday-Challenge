@@ -42,6 +42,8 @@ def resp(request):
   days = requestList[0].split('=')[1]
   firstDate = requestList[1].split('=')[1]
   secondDate = requestList[2].split('=')[1]
+  if firstDate.split('-')[0] != '2023' or firstDate.split('-')[0] != '2023':
+    return render(request, 'index.html')
   realFirstDate = datetime.strptime(firstDate[2:], '%y-%m-%d').date()
   realSecondDate = datetime.strptime(secondDate[2:], '%y-%m-%d').date()
   if (realSecondDate - realFirstDate).days < int(days):
@@ -362,9 +364,9 @@ def result(request):
   for i in range(0,len(offers)):
     #changing the datetime format to present it in a nicer way :)
     tempList1 = str(temp_offers[i].outbounddeparturedatetime).split('-')
-    tempList2 = str(temp_offers[i].inbounddeparturedatetime).split('-')
+    tempList2 = str(temp_offers[i].inboundarrivaldatetime).split('-')
     tempList3 = str(temp_offers[i].outboundarrivaldatetime).split('-')
-    tempList4 = str(temp_offers[i].inboundarrivaldatetime).split('-')
+    tempList4 = str(temp_offers[i].inbounddeparturedatetime).split('-')
     temp1 = (tempList1[2][:2] + '.' + tempList1[1] + '.' + tempList1[0])
     temp2 = (tempList2[2][:2] + '.' + tempList2[1] + '.' + tempList2[0])
     temp3 = (tempList3[2][:2] + '.' + tempList3[1] + '.' + tempList3[0])
