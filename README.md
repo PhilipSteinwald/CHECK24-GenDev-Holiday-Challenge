@@ -10,7 +10,7 @@ Das Frontend ist in den Ordnern /holiday_project/templates/ und /holiday_project
 
 Für das Backend inklusive Datenbankzugriff wird hauptsächlich die Datei /holiday_project/members/views.py verwendet.
 
-Die Grundidee zur performanten Abfrage der Daten ist die Transformation der csv-Files in einzelne Tables der Datenbank db.splite3. Diese werden dann zuerst nach dem Preis sortiert und dann nach gewissen Kriterien gefiltert. Weitere Informationen werden dann in einem separaten Table gespeichert und mithilfe einer universellen id gemaped.
+Die Grundidee zur performanten Abfrage der Daten ist die Transformation der csv-Files in einzelne Tables der Datenbank db.splite3. Diese liegen schon nach dem Preis sortiert in der Datenbank und werden dann nach gewissen Kriterien(days, countadults, etc.) gefiltert. Weitere Informationen werden dann in einem separaten Table gespeichert und mithilfe einer universellen id gemaped.
 
 ### Datenbank Struktur
 
@@ -73,10 +73,6 @@ MAC/Unix:
 > Python -m pip install Django
 
 
-Zudem wird die Datenbank db.sqlite3 benötigt diese kann unter folgendem Link heruntergeladen werden: ...
-
-Nach dem Download sollte diese in das Verzeichnis /holiday_project/ bewegt werden.
-
 ### Starten des Programms
 
 Ist nun alles korrekt installiert kann man per Kommandozeile ins Verzeichnis ./holiday_project/ gehen und dann folgendes Kommando ausführen:
@@ -95,4 +91,28 @@ Daraufhin kann unter http://127.0.0.1:8000/ auf das laufende Programm zugreifen.
 
 ## Videoaufzeichnung des ausgeführten Programmes
 
-...
+https://youtu.be/8TySInxfeQg
+
+## Anmerkungen
+
+### Mini-Datenbank
+
+Die eigentliche Datenbank war leider zu groß, um sie einfach über GitHub zu pushen, daher habe ich eine kleine Test-Datenbank erstellt. Auf dieser Datenbank können folgende Abfragen ausgeführt werden:
+
+- Flughäfen: MUC,FRA,BER + Tage: 7 + Erwachsene: 2 + Kinder: 1
+- Flughafen: FRA + Tage: 10 + Erwachsene: 1 + Kinder: 0
+- Flughafen: MUC + Tage: 4 + Erwachsene: 1 + Kinder: 0
+- Flughafen: MUC + Tage: 14 + Erwachsene: 2 + Kinder: 0
+- Flughafen: INN
+
+### Weitere Optimierungen
+
+Durch das Sortieren der Aller Einträge nach dem Preis wird indirekt auch nach der Anzahl der Personen(mehr Personen = höherer Preis) und der Tage(mehr Tage = höherer Preis) sortiert. Somit ist die Performance einer Abfrage stark davon abhängig. Bei großen Tables wie zum Beispiel offerDUS oder offerFRA wäre es also sinnvoll noch bezüglich dieser Werte aufzuspliten.
+Zudem sind noch folgende weitere Suchkriterien möglich:
+
+- Hotelsterne
+- Meerblick
+- Verpflegung
+- Zimmer
+
+Diese könnten bei allen offerXXX Tables hinzugefügt werden und dann beim filtern optional berücksichtigt werden.

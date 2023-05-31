@@ -1,3 +1,2 @@
-offers.csv
-testOffers.csv
-*.sqlite3
+*.csv
+ignore.sqlite3

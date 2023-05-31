@@ -5,35 +5,7 @@ from datetime import datetime, timedelta
 import csv
 
 def index(request):
-  #presorting
-  offerBER.objects.all().order_by('price')
-  offerCGN.objects.all().order_by('price')
-  offerDUS.objects.all().order_by('price')
-  offerFKB.objects.all().order_by('price')
-  offerFMM.objects.all().order_by('price')
-  offerFMO.objects.all().order_by('price')
-  offerFRA.objects.all().order_by('price')
-  offerGRZ.objects.all().order_by('price')
-  offerHAJ.objects.all().order_by('price')
-  offerHAM.objects.all().order_by('price')
-  offerLEJ.objects.all().order_by('price')
-  offerMUC.objects.all().order_by('price')
-  offerNUE.objects.all().order_by('price')
-  offerSTR.objects.all().order_by('price')
   return render(request, 'index.html')
-
-def hotel_setup(request):
-  csvreader = csv.reader(open("hotels.csv", 'r', errors="ignore"))
-  bool = False
-  for row in csvreader:
-    if bool:
-      row = row[0].split(";")
-      print(row[0])
-      h = Hotel(hotelid=int(row[0]), hotelname=row[1], hotelstars=row[2][:1])
-      h.save()
-    else:
-      bool = True
-  return render(request, 'setup.html', context={'name': 'Hotel', 'elements': Hotel.objects.all().count()})
 
 def resp(request):
   requestList = (str(request).split('?')[1]).split('&')
@@ -43,11 +15,11 @@ def resp(request):
   firstDate = requestList[1].split('=')[1]
   secondDate = requestList[2].split('=')[1]
   if firstDate.split('-')[0] != '2023' or firstDate.split('-')[0] != '2023':
-    return render(request, 'index.html')
+    return render(request, 'error.html', context={'msg': "Es konnten keine Ergebnisse für diese Daten gefunden werden!"})
   realFirstDate = datetime.strptime(firstDate[2:], '%y-%m-%d').date()
   realSecondDate = datetime.strptime(secondDate[2:], '%y-%m-%d').date()
   if (realSecondDate - realFirstDate).days < int(days):
-    return render(request, 'index.html')
+    return render(request, 'error.html', context={'msg': "Der gewählte Zeitraum ist zu klein für die gewünschte Anzahl an Tagen!"})
   airports = requestList[3].split('=')[1].split("%2C+")
   countAdults = requestList[4].split('=')[1].split('+')[0]
   countChildren = requestList[4].split('=')[1].split('+')[2]
@@ -63,104 +35,104 @@ def resp(request):
   offers = []
   for i in range(0,len(airports)):
     if airports[i] == "AMS":
-      offers.append([offerAMS.objects.all().order_by('price').filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days)[:max]])
+      offers.append([offerAMS.objects.filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days)[:max]])
     elif airports[i] == "BER":
-      offers.append([offerBER.objects.all().order_by('price').filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days)[:max]])
+      offers.append([offerBER.objects.filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days)[:max]])
     elif airports[i] == "BLL":
-      offers.append([offerBLL.objects.all().order_by('price').filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days)[:max]])
+      offers.append([offerBLL.objects.filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days)[:max]])
     elif airports[i] == "BRE":
-      offers.append([offerBRE.objects.all().order_by('price').filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days)[:max]])
+      offers.append([offerBRE.objects.filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days)[:max]])
     elif airports[i] == "BRN":
-      offers.append([offerBRN.objects.all().order_by('price').filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days)[:max]])
+      offers.append([offerBRN.objects.filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days)[:max]])
     elif airports[i] == "BRU":
-      offers.append([offerBRU.objects.all().order_by('price').filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days)[:max]])
+      offers.append([offerBRU.objects.filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days)[:max]])
     elif airports[i] == "BSL":
-      offers.append([offerBSL.objects.all().order_by('price').filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days)[:max]])
+      offers.append([offerBSL.objects.filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days)[:max]])
     elif airports[i] == "CGN":
-      offers.append([offerCGN.objects.all().order_by('price').filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days)[:max]])
+      offers.append([offerCGN.objects.filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days)[:max]])
     elif airports[i] == "CRL":
-      offers.append([offerCRL.objects.all().order_by('price').filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days)[:max]])
+      offers.append([offerCRL.objects.filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days)[:max]])
     elif airports[i] == "CSO":
-      offers.append([offerCSO.objects.all().order_by('price').filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days)[:max]])
+      offers.append([offerCSO.objects.filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days)[:max]])
     elif airports[i] == "DRS":
-      offers.append([offerDRS.objects.all().order_by('price').filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days)[:max]])
+      offers.append([offerDRS.objects.filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days)[:max]])
     elif airports[i] == "DTM":
-      offers.append([offerDTM.objects.all().order_by('price').filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days)[:max]])
+      offers.append([offerDTM.objects.filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days)[:max]])
     elif airports[i] == "DUS":
-      offers.append([offerDUS.objects.all().order_by('price').filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days)[:max]])
+      offers.append([offerDUS.objects.filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days)[:max]])
     elif airports[i] == "EIN":
-      offers.append([offerEIN.objects.all().order_by('price').filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days)[:max]])
+      offers.append([offerEIN.objects.filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days)[:max]])
     elif airports[i] == "ERF":
-      offers.append([offerERF.objects.all().order_by('price').filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days)[:max]])
+      offers.append([offerERF.objects.filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days)[:max]])
     elif airports[i] == "FDH":
-      offers.append([offerFDH.objects.all().order_by('price').filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days)[:max]])
+      offers.append([offerFDH.objects.filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days)[:max]])
     elif airports[i] == "FKB":
-      offers.append([offerFKB.objects.all().order_by('price').filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days)[:max]])
+      offers.append([offerFKB.objects.filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days)[:max]])
     elif airports[i] == "FMM":
-      offers.append([offerFMM.objects.all().order_by('price').filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days)[:max]])
+      offers.append([offerFMM.objects.filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days)[:max]])
     elif airports[i] == "FMO":
-      offers.append([offerFMO.objects.all().order_by('price').filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days)[:max]])
+      offers.append([offerFMO.objects.filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days)[:max]])
     elif airports[i] == "FRA":
-      offers.append([offerFRA.objects.all().order_by('price').filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days)[:max]])
+      offers.append([offerFRA.objects.filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days)[:max]])
     elif airports[i] == "GRZ":
-      offers.append([offerGRZ.objects.all().order_by('price').filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days)[:max]])
+      offers.append([offerGRZ.objects.filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days)[:max]])
     elif airports[i] == "GVA":
-      offers.append([offerGVA.objects.all().order_by('price').filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days)[:max]])
+      offers.append([offerGVA.objects.filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days)[:max]])
     elif airports[i] == "GWT":
-      offers.append([offerGWT.objects.all().order_by('price').filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days)[:max]])
+      offers.append([offerGWT.objects.filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days)[:max]])
     elif airports[i] == "HAJ":
-      offers.append([offerHAJ.objects.all().order_by('price').filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days)[:max]])
+      offers.append([offerHAJ.objects.filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days)[:max]])
     elif airports[i] == "HAM":
-      offers.append([offerHAM.objects.all().order_by('price').filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days)[:max]])
+      offers.append([offerHAM.objects.filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days)[:max]])
     elif airports[i] == "HHN":
-      offers.append([offerHHH.objects.all().order_by('price').filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days)[:max]])
+      offers.append([offerHHH.objects.filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days)[:max]])
     elif airports[i] == "INN":
-      offers.append([offerINN.objects.all().order_by('price').filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days)[:max]])
+      offers.append([offerINN.objects.filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days)[:max]])
     elif airports[i] == "KLU":
-      offers.append([offerKLU.objects.all().order_by('price').filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days)[:max]])
+      offers.append([offerKLU.objects.filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days)[:max]])
     elif airports[i] == "KRK":
-      offers.append([offerKRK.objects.all().order_by('price').filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days)[:max]])
+      offers.append([offerKRK.objects.filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days)[:max]])
     elif airports[i] == "KSF":
-      offers.append([offerKSF.objects.all().order_by('price').filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days)[:max]])
+      offers.append([offerKSF.objects.filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days)[:max]])
     elif airports[i] == "LBC":
-      offers.append([offerLBC.objects.all().order_by('price').filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days)[:max]])
+      offers.append([offerLBC.objects.filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days)[:max]])
     elif airports[i] == "LEJ":
-      offers.append([offerLEJ.objects.all().order_by('price').filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days)[:max]])
+      offers.append([offerLEJ.objects.filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days)[:max]])
     elif airports[i] == "LNZ":
-      offers.append([offerLNZ.objects.all().order_by('price').filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days)[:max]])
+      offers.append([offerLNZ.objects.filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days)[:max]])
     elif airports[i] == "LUX":
-      offers.append([offerLUX.objects.all().order_by('price').filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days)[:max]])
+      offers.append([offerLUX.objects.filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days)[:max]])
     elif airports[i] == "MUC":
-      offers.append([offerMUC.objects.all().order_by('price').filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days)[:max]])
+      offers.append([offerMUC.objects.filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days)[:max]])
     elif airports[i] == "NRN":
-      offers.append([offerNRN.objects.all().order_by('price').filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days)[:max]])
+      offers.append([offerNRN.objects.filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days)[:max]])
     elif airports[i] == "NUE":
-      offers.append([offerNUE.objects.all().order_by('price').filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days)[:max]])
+      offers.append([offerNUE.objects.filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days)[:max]])
     elif airports[i] == "PAD":
-      offers.append([offerPAD.objects.all().order_by('price').filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days)[:max]])
+      offers.append([offerPAD.objects.filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days)[:max]])
     elif airports[i] == "PRG":
-      offers.append([offerPRG.objects.all().order_by('price').filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days)[:max]])
+      offers.append([offerPRG.objects.filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days)[:max]])
     elif airports[i] == "RLG":
-      offers.append([offerRLG.objects.all().order_by('price').filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days)[:max]])
+      offers.append([offerRLG.objects.filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days)[:max]])
     elif airports[i] == "RTM":
-      offers.append([offerRTM.objects.all().order_by('price').filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days)[:max]])
+      offers.append([offerRTM.objects.filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days)[:max]])
     elif airports[i] == "SCN":
-      offers.append([offerSCN.objects.all().order_by('price').filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days)[:max]])
+      offers.append([offerSCN.objects.filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days)[:max]])
     elif airports[i] == "STR":
-      offers.append([offerSTR.objects.all().order_by('price').filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days)[:max]])
+      offers.append([offerSTR.objects.filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days)[:max]])
     elif airports[i] == "SXB":
-      offers.append([offerSXB.objects.all().order_by('price').filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days)[:max]])
+      offers.append([offerSXB.objects.filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days)[:max]])
     elif airports[i] == "SZG":
-      offers.append([offerSZG.objects.all().order_by('price').filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days)[:max]])
+      offers.append([offerSZG.objects.filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days)[:max]])
     elif airports[i] == "VIE":
-      offers.append([offerVIE.objects.all().order_by('price').filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days)[:max]])
+      offers.append([offerVIE.objects.filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days)[:max]])
     elif airports[i] == "WAW":
-      offers.append([offerWAW.objects.all().order_by('price').filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days)[:max]])
+      offers.append([offerWAW.objects.filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days)[:max]])
     elif airports[i] == "ZRH":
-      offers.append([offerZRH.objects.all().order_by('price').filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days)[:max]])
+      offers.append([offerZRH.objects.filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days)[:max]])
     else:
       print("Airport not found")
-      return render(request, 'index.html')
+      return render(request, 'error.html', context={'msg': "Flughafen konnte nicht gefunden werden!"})
   
   final_offers = []
   for temp in offers:
@@ -170,6 +142,10 @@ def resp(request):
   
   n = len(temp_offers)
   print(n)
+
+  if n == 0:
+    print("No Offers found")
+    return render(request, 'error.html', context={'msg': "Für diese Suche konnten keine Ergebnisse gefunden werden!"})
 
   #sorting them according to the lowest price
   for i in range(0,n):
@@ -234,104 +210,104 @@ def result(request):
   offers = []
   for i in range(0,len(airports)):
     if airports[i] == "AMS":
-      offers.append([offerAMS.objects.all().order_by('price').filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days, hotelid=hotelID)[:max]])
+      offers.append([offerAMS.objects.filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days, hotelid=hotelID)[:max]])
     elif airports[i] == "BER":
-      offers.append([offerBER.objects.all().order_by('price').filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days, hotelid=hotelID)[:max]])
+      offers.append([offerBER.objects.filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days, hotelid=hotelID)[:max]])
     elif airports[i] == "BLL":
-      offers.append([offerBLL.objects.all().order_by('price').filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days, hotelid=hotelID)[:max]])
+      offers.append([offerBLL.objects.filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days, hotelid=hotelID)[:max]])
     elif airports[i] == "BRE":
-      offers.append([offerBRE.objects.all().order_by('price').filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days, hotelid=hotelID)[:max]])
+      offers.append([offerBRE.objects.filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days, hotelid=hotelID)[:max]])
     elif airports[i] == "BRN":
-      offers.append([offerBRN.objects.all().order_by('price').filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days, hotelid=hotelID)[:max]])
+      offers.append([offerBRN.objects.filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days, hotelid=hotelID)[:max]])
     elif airports[i] == "BRU":
-      offers.append([offerBRU.objects.all().order_by('price').filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days, hotelid=hotelID)[:max]])
+      offers.append([offerBRU.objects.filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days, hotelid=hotelID)[:max]])
     elif airports[i] == "BSL":
-      offers.append([offerBSL.objects.all().order_by('price').filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days, hotelid=hotelID)[:max]])
+      offers.append([offerBSL.objects.filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days, hotelid=hotelID)[:max]])
     elif airports[i] == "CGN":
-      offers.append([offerCGN.objects.all().order_by('price').filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days, hotelid=hotelID)[:max]])
+      offers.append([offerCGN.objects.filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days, hotelid=hotelID)[:max]])
     elif airports[i] == "CRL":
-      offers.append([offerCRL.objects.all().order_by('price').filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days, hotelid=hotelID)[:max]])
+      offers.append([offerCRL.objects.filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days, hotelid=hotelID)[:max]])
     elif airports[i] == "CSO":
-      offers.append([offerCSO.objects.all().order_by('price').filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days, hotelid=hotelID)[:max]])
+      offers.append([offerCSO.objects.filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days, hotelid=hotelID)[:max]])
     elif airports[i] == "DRS":
-      offers.append([offerDRS.objects.all().order_by('price').filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days, hotelid=hotelID)[:max]])
+      offers.append([offerDRS.objects.filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days, hotelid=hotelID)[:max]])
     elif airports[i] == "DTM":
-      offers.append([offerDTM.objects.all().order_by('price').filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days, hotelid=hotelID)[:max]])
+      offers.append([offerDTM.objects.filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days, hotelid=hotelID)[:max]])
     elif airports[i] == "DUS":
-      offers.append([offerDUS.objects.all().order_by('price').filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days, hotelid=hotelID)[:max]])
+      offers.append([offerDUS.objects.filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days, hotelid=hotelID)[:max]])
     elif airports[i] == "EIN":
-      offers.append([offerEIN.objects.all().order_by('price').filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days, hotelid=hotelID)[:max]])
+      offers.append([offerEIN.objects.filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days, hotelid=hotelID)[:max]])
     elif airports[i] == "ERF":
-      offers.append([offerERF.objects.all().order_by('price').filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days, hotelid=hotelID)[:max]])
+      offers.append([offerERF.objects.filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days, hotelid=hotelID)[:max]])
     elif airports[i] == "FDH":
-      offers.append([offerFDH.objects.all().order_by('price').filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days, hotelid=hotelID)[:max]])
+      offers.append([offerFDH.objects.filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days, hotelid=hotelID)[:max]])
     elif airports[i] == "FKB":
-      offers.append([offerFKB.objects.all().order_by('price').filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days, hotelid=hotelID)[:max]])
+      offers.append([offerFKB.objects.filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days, hotelid=hotelID)[:max]])
     elif airports[i] == "FMM":
-      offers.append([offerFMM.objects.all().order_by('price').filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days, hotelid=hotelID)[:max]])
+      offers.append([offerFMM.objects.filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days, hotelid=hotelID)[:max]])
     elif airports[i] == "FMO":
-      offers.append([offerFMO.objects.all().order_by('price').filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days, hotelid=hotelID)[:max]])
+      offers.append([offerFMO.objects.filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days, hotelid=hotelID)[:max]])
     elif airports[i] == "FRA":
-      offers.append([offerFRA.objects.all().order_by('price').filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days, hotelid=hotelID)[:max]])
+      offers.append([offerFRA.objects.filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days, hotelid=hotelID)[:max]])
     elif airports[i] == "GRZ":
-      offers.append([offerGRZ.objects.all().order_by('price').filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days, hotelid=hotelID)[:max]])
+      offers.append([offerGRZ.objects.filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days, hotelid=hotelID)[:max]])
     elif airports[i] == "GVA":
-      offers.append([offerGVA.objects.all().order_by('price').filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days, hotelid=hotelID)[:max]])
+      offers.append([offerGVA.objects.filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days, hotelid=hotelID)[:max]])
     elif airports[i] == "GWT":
-      offers.append([offerGWT.objects.all().order_by('price').filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days, hotelid=hotelID)[:max]])
+      offers.append([offerGWT.objects.filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days, hotelid=hotelID)[:max]])
     elif airports[i] == "HAJ":
-      offers.append([offerHAJ.objects.all().order_by('price').filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days, hotelid=hotelID)[:max]])
+      offers.append([offerHAJ.objects.filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days, hotelid=hotelID)[:max]])
     elif airports[i] == "HAM":
-      offers.append([offerHAM.objects.all().order_by('price').filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days, hotelid=hotelID)[:max]])
+      offers.append([offerHAM.objects.filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days, hotelid=hotelID)[:max]])
     elif airports[i] == "HHN":
-      offers.append([offerHHH.objects.all().order_by('price').filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days, hotelid=hotelID)[:max]])
+      offers.append([offerHHH.objects.filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days, hotelid=hotelID)[:max]])
     elif airports[i] == "INN":
-      offers.append([offerINN.objects.all().order_by('price').filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days, hotelid=hotelID)[:max]])
+      offers.append([offerINN.objects.filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days, hotelid=hotelID)[:max]])
     elif airports[i] == "KLU":
-      offers.append([offerKLU.objects.all().order_by('price').filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days, hotelid=hotelID)[:max]])
+      offers.append([offerKLU.objects.filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days, hotelid=hotelID)[:max]])
     elif airports[i] == "KRK":
-      offers.append([offerKRK.objects.all().order_by('price').filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days, hotelid=hotelID)[:max]])
+      offers.append([offerKRK.objects.filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days, hotelid=hotelID)[:max]])
     elif airports[i] == "KSF":
-      offers.append([offerKSF.objects.all().order_by('price').filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days, hotelid=hotelID)[:max]])
+      offers.append([offerKSF.objects.filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days, hotelid=hotelID)[:max]])
     elif airports[i] == "LBC":
-      offers.append([offerLBC.objects.all().order_by('price').filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days, hotelid=hotelID)[:max]])
+      offers.append([offerLBC.objects.filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days, hotelid=hotelID)[:max]])
     elif airports[i] == "LEJ":
-      offers.append([offerLEJ.objects.all().order_by('price').filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days, hotelid=hotelID)[:max]])
+      offers.append([offerLEJ.objects.filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days, hotelid=hotelID)[:max]])
     elif airports[i] == "LNZ":
-      offers.append([offerLNZ.objects.all().order_by('price').filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days, hotelid=hotelID)[:max]])
+      offers.append([offerLNZ.objects.filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days, hotelid=hotelID)[:max]])
     elif airports[i] == "LUX":
-      offers.append([offerLUX.objects.all().order_by('price').filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days, hotelid=hotelID)[:max]])
+      offers.append([offerLUX.objects.filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days, hotelid=hotelID)[:max]])
     elif airports[i] == "MUC":
-      offers.append([offerMUC.objects.all().order_by('price').filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days, hotelid=hotelID)[:max]])
+      offers.append([offerMUC.objects.filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days, hotelid=hotelID)[:max]])
     elif airports[i] == "NRN":
-      offers.append([offerNRN.objects.all().order_by('price').filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days, hotelid=hotelID)[:max]])
+      offers.append([offerNRN.objects.filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days, hotelid=hotelID)[:max]])
     elif airports[i] == "NUE":
-      offers.append([offerNUE.objects.all().order_by('price').filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days, hotelid=hotelID)[:max]])
+      offers.append([offerNUE.objects.filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days, hotelid=hotelID)[:max]])
     elif airports[i] == "PAD":
-      offers.append([offerPAD.objects.all().order_by('price').filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days, hotelid=hotelID)[:max]])
+      offers.append([offerPAD.objects.filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days, hotelid=hotelID)[:max]])
     elif airports[i] == "PRG":
-      offers.append([offerPRG.objects.all().order_by('price').filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days, hotelid=hotelID)[:max]])
+      offers.append([offerPRG.objects.filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days, hotelid=hotelID)[:max]])
     elif airports[i] == "RLG":
-      offers.append([offerRLG.objects.all().order_by('price').filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days, hotelid=hotelID)[:max]])
+      offers.append([offerRLG.objects.filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days, hotelid=hotelID)[:max]])
     elif airports[i] == "RTM":
-      offers.append([offerRTM.objects.all().order_by('price').filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days, hotelid=hotelID)[:max]])
+      offers.append([offerRTM.objects.filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days, hotelid=hotelID)[:max]])
     elif airports[i] == "SCN":
-      offers.append([offerSCN.objects.all().order_by('price').filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days, hotelid=hotelID)[:max]])
+      offers.append([offerSCN.objects.filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days, hotelid=hotelID)[:max]])
     elif airports[i] == "STR":
-      offers.append([offerSTR.objects.all().order_by('price').filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days, hotelid=hotelID)[:max]])
+      offers.append([offerSTR.objects.filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days, hotelid=hotelID)[:max]])
     elif airports[i] == "SXB":
-      offers.append([offerSXB.objects.all().order_by('price').filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days, hotelid=hotelID)[:max]])
+      offers.append([offerSXB.objects.filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days, hotelid=hotelID)[:max]])
     elif airports[i] == "SZG":
-      offers.append([offerSZG.objects.all().order_by('price').filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days, hotelid=hotelID)[:max]])
+      offers.append([offerSZG.objects.filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days, hotelid=hotelID)[:max]])
     elif airports[i] == "VIE":
-      offers.append([offerVIE.objects.all().order_by('price').filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days, hotelid=hotelID)[:max]])
+      offers.append([offerVIE.objects.filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days, hotelid=hotelID)[:max]])
     elif airports[i] == "WAW":
-      offers.append([offerWAW.objects.all().order_by('price').filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days, hotelid=hotelID)[:max]])
+      offers.append([offerWAW.objects.filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days, hotelid=hotelID)[:max]])
     elif airports[i] == "ZRH":
-      offers.append([offerZRH.objects.all().order_by('price').filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days, hotelid=hotelID)[:max]])
+      offers.append([offerZRH.objects.filter(countadults=countAdults, countchildren=countChildren, startdate__range=[realFirstDate,(realSecondDate - timedelta(days=int(days)))], days=days, hotelid=hotelID)[:max]])
     else:
       print("Airport not found")
-      return render(request, 'index.html')
+      return render(request, 'error.html', context={'msg': "Flughafen konnte nicht gefunden werden!"})
   
   final_offers = []
   for temp in offers:
