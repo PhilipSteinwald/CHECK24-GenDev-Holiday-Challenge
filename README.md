@@ -103,7 +103,6 @@ Die eigentliche Datenbank war leider zu groß, um sie einfach über GitHub zu pu
 - Flughafen: FRA + Tage: 10 + Erwachsene: 1 + Kinder: 0
 - Flughafen: MUC + Tage: 4 + Erwachsene: 1 + Kinder: 0
 - Flughafen: MUC + Tage: 14 + Erwachsene: 2 + Kinder: 0
-- Flughafen: INN
 
 ### Weitere Optimierungen
 
